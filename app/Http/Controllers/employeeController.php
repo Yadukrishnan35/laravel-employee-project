@@ -30,7 +30,6 @@ class employeeController extends Controller
 
     }
     function employee_view(Request $request){
-        dd($request->all());
         return Employee::find($request->id);
     } 
 

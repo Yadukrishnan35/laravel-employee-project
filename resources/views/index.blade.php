@@ -389,6 +389,44 @@
   $(document).ready(function() {
        employeeList();
   });
+  function viewEmployee(id) {
+            $.ajax({
+                type: 'get',
+                data: {
+                    id: id,
+                },
+                url: "{{ url('employee-view') }}",
+                success: function(response) {
+                    console.log(response);
+                    $('.edit_employee #name_input').val(response.name);
+                    $('.edit_employee #email_input').val(response.email);
+                    $('.edit_employee #phone_input').val(response.phone);
+                    $('.edit_employee #address_input').val(response.address);
+                    $('.edit_employee #employee_id').val(response.id);
+                    $('.view_employee #name_input').val(response.name);
+                    $('.view_employee #email_input').val(response.email);
+                    $('.view_employee #phone_input').val(response.phone);
+                    $('.view_employee #address_input').val(response.address);
+                }
+            })
+        }
+        function deleteEmployee() {
+            var id = $('#delete_id').val();
+            $('#deleteEmployeeModal').modal('hide');
+            $.ajax({
+                type: 'get',
+                data: {
+                    id: id,
+                },
+                url: "{{ url('employee-delete') }}",
+                success: function(response) {
+                    employeeList();
+                    alert(response.message);
+                }
+            })
+        }
+
+
   function employeeList() {
     $.ajax({
         type: 'get',
@@ -476,42 +514,8 @@
 
             })
         }
-        function viewEmployee(id) {
-            $.ajax({
-                type: 'get',
-                data: {
-                    id: id,
-                },
-                url: "{{ url('employee-view') }}",
-                success: function(response) {
-                    console.log(response);
-                    $('.edit_employee #name_input').val(response.name);
-                    $('.edit_employee #email_input').val(response.email);
-                    $('.edit_employee #phone_input').val(response.phone);
-                    $('.edit_employee #address_input').val(response.address);
-                    $('.edit_employee #employee_id').val(response.id);
-                    $('.view_employee #name_input').val(response.name);
-                    $('.view_employee #email_input').val(response.email);
-                    $('.view_employee #phone_input').val(response.phone);
-                    $('.view_employee #address_input').val(response.address);
-                }
-            })
-        }
+        
 
-        function deleteEmployee() {
-            var id = $('#delete_id').val();
-            $('#deleteEmployeeModal').modal('hide');
-            $.ajax({
-                type: 'get',
-                data: {
-                    id: id,
-                },
-                url: "{{ url('employee-delete') }}",
-                success: function(response) {
-                    employeeList();
-                    alert(response.message);
-                }
-            })
-        }
+        
     }
     </script>
